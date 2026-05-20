@@ -35,3 +35,6 @@ my-learning-agent-*.png
 
 # Pagefind 검색 인덱스 (postbuild에서 자동 생성)
 /public/_pagefind/
+
+# Claude Code 로컬 설정 (개인 환경 — CLAUDE_AUTO_PUSH 등)
+.claude/settings.local.json
