@@ -117,7 +117,9 @@ LLM wiki 폴더의 예 (학습 에이전트 운영 맥락):
 
 ```
 my-wiki/
-├── README.md                              # 입구. 최근 노트 5개 + 자주 여는 링크
+├── CLAUDE.md                              # 스키마 — LLM에게 위키 유지 규약을 알려주는 문서
+├── index.md                               # 위키 카탈로그 — 원문 "catalog of everything in the wiki"
+├── log.md                                 # 변경 로그 — 원문 "append-only record of what happened and when"
 ├── 2025-10-25-second-brain-trap.md
 ├── 2025-10-28-pim-vs-pkm.md
 ├── 2025-10-30-recall-exercise.md
@@ -128,7 +130,21 @@ my-wiki/
     └── 2025-11-02-wiki-flow.png
 ```
 
-**폴더가 거의 없는 게 의도된 모양**입니다. 시간순 파일명이 인덱스를 대신하고, `README.md` 한 장이 입구 역할. 카테고리 폴더를 만드는 순간 사람은 편해지지만 LLM은 한 번에 삼키기 어려워진다는 게 카파시의 입장입니다.
+**`CLAUDE.md` · `index.md` · `log.md` 세 장이 위키의 척추**입니다. 카파시의 [LLM Wiki gist (2026.04)](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)에서 직접 가져온 명명 — `index.md`는 전체 페이지 카탈로그, `log.md`는 LLM이 위키에 뭘 했는지 추가만 하는 변경 로그, `CLAUDE.md`는 "이 위키를 어떻게 유지할지" 적어두는 스키마. 시간순 파일명이 폴더를 대신한다는 원칙은 그대로지만, 척추 세 장이 더해지면 LLM이 위키를 **읽기만 하는 게 아니라 갱신할 줄 알게** 됩니다.
+
+<Toggle title="📚 카파시 LLM Wiki의 3층 모델 (원문 참고)">
+
+원문 ([Karpathy LLM Wiki gist, 2026.04](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f))은 위키를 세 층으로 나눕니다.
+
+1. **Raw sources** — *"immutable — the LLM reads from them but never modifies them"*. 원본 PDF·녹취록·웹 클립·메모. LLM은 읽기만 하고 수정 X. 위키 폴더 **바깥**에 둡니다.
+2. **The wiki** — *"a directory of LLM-generated markdown files"*. LLM이 raw sources를 읽고 **요약·엔티티 페이지·개념 페이지로 컴파일한 결과물**. 매 질문마다 다시 만드는 게 아니라 누적·갱신됨.
+3. **The schema** — *"a document (e.g. CLAUDE.md for Claude Code or AGENTS.md for Codex)"*. LLM에게 "어떤 구조로, 어떤 규칙으로 위키를 유지할지" 알려주는 매니페스트.
+
+핵심 명제 — *"the wiki is a **persistent, compounding artifact**"*. 매 질문마다 새로 검색해서 fragment를 가져오는 RAG와 다른 점 — 위키는 **한 번 만들고 계속 갱신되는** 자산.
+
+규모: 약 100개 소스 · 수백 페이지까지는 이 패턴이 그대로 작동하고, 그 이상 커지면 위키 위에 검색 도구(BM25+벡터 하이브리드 등)를 얹는 단계로 넘어간다는 게 원문의 입장입니다.
+
+</Toggle>
 
 분류 체계(PARA, Zettelkasten 등)와의 차이: 카파시는 **사람 친화 분류가 곧 LLM 친화 분류는 아니다**라고 봅니다. 사람은 폴더 트리로 길을 찾지만 LLM은 컨텍스트 윈도우에 한꺼번에 들어가야 보입니다.
 
