@@ -59,7 +59,7 @@ import { Tabs } from 'nextra/components'
 |---|---|
 | **벤치마크 (Benchmarks)** | prompt injection 저항성·불확실성 표면화에 대한 표준화된 비교 기준 부재. NIST(미국 국립표준기술연구소) 같은 표준 기구의 역할 필요 |
 | **근거 공유 (Evidence sharing)** | 에이전트가 어디서 막히는지 더 많은 개발자가 데이터를 공유해야 정책 입안자에게 충실한 그림이 잡힘 |
-| **개방형 표준 (Open standards)** | Model Context Protocol(MCP)을 Linux Foundation의 Agentic AI Foundation에 기증 — 보안 속성을 인프라 단에서 한 번 설계 |
+| **개방형 표준 (Open standards)** | Model Context Protocol(MCP · 외부 도구·데이터를 LLM에 한 줄로 붙여 쓰게 해 주는 개방형 규격)을 Linux Foundation의 Agentic AI Foundation에 기증 — 보안 속성을 인프라 단에서 한 번 설계 |
 
   </Tabs.Tab>
   <Tabs.Tab>
@@ -127,7 +127,7 @@ An agent runs a self-directed loop (plan → act → observe → adjust → repe
 | Anthropic 5원칙 / 컴포넌트 | 우리 워크숍에서 대응되는 자리 |
 |---|---|
 | 4-컴포넌트 (모델·하네스·도구·환경) | [에이전트란 무엇일까?](/agent)의 "에이전트 = 모델 + 도구 + 환경" 정의와 직접 매핑 |
-| 사람의 통제 (Plan Mode·권한) | [저장소 셋팅](/setup)의 `.claude/settings.json`(권한 설정)과 Claude Code의 `/plan` 흐름 |
+| 사람의 통제 (Plan Mode·권한) | [저장소 셋팅](/setup)의 `.claude/settings.json`(권한 설정)과 Claude Code의 Plan Mode 흐름 |
 | 명확화 요청 (가정보다 멈춤) | `/쓰기`가 두 질문만 던지는 패턴 — [3원칙 단원](/mechanism#3-outbox-한-글의-형식--3원칙)에서 "AI가 첫 줄을 대신 써주면 학습 효과가 무너진다"와 같은 결의 메타 룰 |
 | 프롬프트 인젝션 방어 | 본인 학습 저장소를 공개로 두지 않는 이유와 직접 연결 — [오늘 한 줄](/retrieve)의 v1 셋업 노트 |
 | MCP를 개방형 표준으로 기증 | 워크숍에서 쓰는 MCP 도구들이 그 결과 — `.mcp.json`으로 도구를 한 줄로 붙여 쓰는 동작 |
