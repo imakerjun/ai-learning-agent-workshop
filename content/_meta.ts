@@ -1,12 +1,26 @@
+import { pages } from '../lib/pages'
+
+/**
+ * Nextra 사이드바·헤더 네비게이션.
+ *
+ * 워크숍 페이지 제목은 `lib/pages.ts`에서 끌어옵니다. 카드 메타데이터와 네비
+ * 라벨이 한 곳에서 관리되므로, 페이지 번호·제목을 바꿀 때 한 자리만 고치면
+ * "워크숍 한눈에"와 사이드바가 같이 움직입니다.
+ *
+ * appendix·examples 같은 비-단원 페이지는 별도로 둡니다.
+ */
+const workshopMeta = pages.reduce<Record<string, string>>((acc, page) => {
+  if (page.layout === 'follow-up') {
+    acc[page.id] = `${page.icon} ${page.title}`
+  } else {
+    acc[page.id] = `${page.number}. ${page.title}`
+  }
+  return acc
+}, {})
+
 export default {
   index: '워크숍 한눈에',
-  agent: '0. 에이전트란 무엇일까?',
-  knowledge: '1. 지식을 잘 정리한다는건 뭘까?',
-  mechanism: '2. 나·LLM·저장소 삼자간의 협업 관계',
-  setup: '3. 저장소 셋팅',
-  outbox: '4. outbox 설계 + 데이터 + 커맨드',
-  retrieve: '5. 꺼낼 한 줄',
-  mission: '🚀 이어가기 · 워크숍 이후 1주',
+  ...workshopMeta,
   appendix: 'Appendix',
   examples: {
     title: '컴포넌트 예제',
