@@ -68,16 +68,27 @@ export const pages: PageSummary[] = [
     icon: '🎯',
     href: '/retrieve',
     description:
-      '`/schedule`로 매일 아침 outbox·`.ai-wiki`를 읽고 숫자 3개 + 오늘 한 줄을 본인에게 보냄. 안 봐도 그만인 뉴스레터가 아니라 약속.',
+      'outbox 최신 글에 한 줄을 더하는 학습 사이클의 가장 작은 단위. 어제 → 오늘 한 줄 → 내일.',
+    layout: 'grid',
+  },
+  {
+    id: 'dashboard',
+    number: '6',
+    title: '지식 대시보드 뉴스레터',
+    icon: '📊',
+    href: '/dashboard',
+    description:
+      '본인 저장소의 통계·수치·시각화를 매일 아침 메일로. 누적·신규·고립 세 숫자 + 영역 분포 + 메타인지 지도.',
     layout: 'finale',
   },
   {
     id: 'mission',
-    number: '6',
-    title: '이어가기 · 워크숍 이후 1주',
+    number: '7',
+    title: '1주일 자율 챌린지',
     icon: '🚀',
     href: '/mission',
-    description: '내 outbox를 7일 굴리고 메타인지 1줄을 5개 모으는 자율 챌린지.',
+    description:
+      '1주일만 본인 저장소 관리 방법으로 굴려보기. Day 0 셋업부터 Day 7 회고까지 step-by-step 가이드.',
     layout: 'follow-up',
   },
 ]
