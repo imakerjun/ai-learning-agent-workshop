@@ -96,14 +96,14 @@ Claude Code에서 my-brain-v1 폴더를 열고 `/일일회고`를 호출합니�
 
 ### 자동화 — 매일 아침 7:30 도착
 
-수동 호출이 정상 작동하면 스케줄에 등록해 매일 아침 자동으로 굴러가게 합니다. 본인 환경에 따라 두 방식 중 하나를 선택합니다. **비개발자는 GitHub Actions 쪽을 권장**합니다 — Mac이 켜져 있을 필요가 없고 plist 같은 macOS 전용 설정 파일을 다루지 않아도 됩니다.
+수동 호출이 정상 작동하면 스케줄(예약 시간) 등록 도구에 맡겨 매일 아침 자동으로 굴러가게 합니다. 본인 환경에 따라 두 방식 중 하나를 선택합니다. **비개발자는 GitHub Actions 쪽을 권장**합니다 — Mac이 켜져 있을 필요가 없고 plist 같은 macOS 전용 설정 파일을 다루지 않아도 됩니다.
 
 <CardGrid columns={2}>
   <Card title="macOS launchd" icon="🍎" meta="로컬 항상 켜져 있는 경우">
     Mac이 정해진 시간마다 어떤 명령을 자동으로 실행하게 하는 macOS 기본 기능입니다. plist는 그 예약 정보를 적어두는 작은 파일이고, `~/Library/LaunchAgents/`에 plist 한 장을 두고 `launchctl load`로 등록합니다. Mac이 꺼져 있으면 동작 안 함에 유의합니다.
   </Card>
   <Card title="GitHub Actions" icon="⚙️" meta="저장소가 GitHub에 올라가 있는 경우 · 비개발자 권장">
-    GitHub Actions는 본인 저장소에서 정해진 시간마다 명령을 자동으로 실행해주는 GitHub의 기본 기능입니다. `.github/workflows/` 폴더에 `.yml` 파일 한 장을 두면 됩니다. 예약 시간은 cron(`'30 22 * * *'` 형태로 시간을 적는 표현)으로 적는데 UTC 기준이라 한국시간 07:30은 22:30 UTC로 적습니다.
+    GitHub Actions는 본인 저장소에서 정해진 시간마다 명령을 자동으로 실행해주는 GitHub의 기본 기능입니다. `.github/workflows/` 폴더에 `.yml` 파일(예약 정보를 적는 작은 텍스트 파일) 한 장을 두면 됩니다. 예약 시간은 cron(`'30 22 * * *'` 형태로 시간을 적는 표현)으로 적는데 UTC 기준이라 한국시간 07:30은 22:30 UTC로 적습니다.
   </Card>
 </CardGrid>
 
