@@ -1,5 +1,6 @@
 export default {
   index: '워크숍 한눈에',
+  agent: '0. 에이전트란 무엇일까?',
   knowledge: '1. 지식을 잘 정리한다는건 뭘까?',
   mechanism: '2. 나·LLM·저장소 삼자간의 협업 관계',
   setup: '3. 저장소 셋팅',
