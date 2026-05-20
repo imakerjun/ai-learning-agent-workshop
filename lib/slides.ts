@@ -12,7 +12,7 @@ export const slideDecks: Record<string, SlideDeck> = {
   },
   '/mechanism': {
     dir: '/slides/mechanism',
-    count: 6,
+    count: 4,
     title: '나·LLM·저장소 삼자간의 협업 관계',
   },
 }
