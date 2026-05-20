@@ -10,7 +10,7 @@ import { Tabs } from 'nextra/components'
 
 ## 한 문장 요약
 
-에이전트는 자율적으로 행동하는 만큼 사용자 의도를 잘못 읽거나 prompt injection 공격에 노출될 위험이 커집니다. Anthropic은 2025년 8월에 발표한 **신뢰할 수 있는 에이전트 프레임워크**(5가지 원칙)를 실전에서 어떻게 적용하는지 풀이합니다.
+에이전트는 자율적으로 행동하는 만큼 사용자 의도를 잘못 읽거나 prompt injection(에이전트가 읽는 자료 안에 숨겨놓은 악의적 지시문) 공격에 노출될 위험이 커집니다. Anthropic은 2025년 8월에 발표한 **신뢰할 수 있는 에이전트 프레임워크**(5가지 원칙)를 실전에서 어떻게 적용하는지 풀이합니다.
 
 ## 다섯 가지 원칙
 
@@ -38,13 +38,13 @@ import { Tabs } from 'nextra/components'
 ### ① 사람의 통제를 설계로 보장하기 (Designing for Human Control)
 
 - 사용자가 도구별로 권한을 직접 설정.
-- Claude Code의 **Plan Mode** — 행동 하나하나 승인 대신, 의도한 행동 계획 전체를 먼저 보여주고 검토·편집·승인.
+- Claude Code의 **Plan Mode**(행동을 시작하기 전 전체 계획을 보여주고 사용자 승인을 받는 모드) — 행동 하나하나 승인 대신, 의도한 계획 전체를 먼저 보여주고 검토·편집·승인.
 - 서브에이전트 협업이 늘면서 워크플로우 가시성을 어떻게 유지할지를 탐색 중.
 
 ### ② 에이전트가 자신의 목표를 이해하도록 돕기 (Helping Agents Understand Their Goals)
 
 - "불확실할 때 멈춰서 명확화를 요청한다" — 학습 시나리오에서 가정보다 멈춤을 강화.
-- Claude의 헌법(Constitution)이 "우려 제기·명확화 요청·진행 거부"를 가정에 의한 행동보다 위에 둡니다.
+- Claude의 헌법(Constitution · Claude가 답할 때 따르는 기본 원칙 문서)이 "우려 제기·명확화 요청·진행 거부"를 가정에 의한 행동보다 위에 둡니다.
 - 연구 결과 — 복잡한 작업에서 Claude가 사용자에게 확인하러 들어오는 빈도가 단순한 작업에 비해 약 두 배.
 
 ### ③ 공격에 대한 방어 (Defending Against Attacks)
@@ -57,7 +57,7 @@ import { Tabs } from 'nextra/components'
 
 | 영역 | 요지 |
 |---|---|
-| **벤치마크 (Benchmarks)** | prompt injection 저항성·불확실성 표면화에 대한 표준화된 비교 기준 부재. NIST 같은 표준 기구의 역할 필요 |
+| **벤치마크 (Benchmarks)** | prompt injection 저항성·불확실성 표면화에 대한 표준화된 비교 기준 부재. NIST(미국 국립표준기술연구소) 같은 표준 기구의 역할 필요 |
 | **근거 공유 (Evidence sharing)** | 에이전트가 어디서 막히는지 더 많은 개발자가 데이터를 공유해야 정책 입안자에게 충실한 그림이 잡힘 |
 | **개방형 표준 (Open standards)** | Model Context Protocol(MCP)을 Linux Foundation의 Agentic AI Foundation에 기증 — 보안 속성을 인프라 단에서 한 번 설계 |
 
