@@ -3,20 +3,16 @@ import { Tabs } from 'nextra/components'
 # 부록 · Trustworthy Agents in Practice
 
 > 원문: [Anthropic — Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents) (2026-04-09)
-> 한국어 번역과 영문 원문 전문을 같은 페이지에서 탭으로 번갈아 볼 수 있게 두었습니다. 에이전트가 자율적으로 행동하기 시작하면서 새로 생기는 위험(의도 오독, prompt injection)을 어떻게 다룰지에 대한 Anthropic의 5가지 원칙 프레임워크.
+> 자율 에이전트가 늘면서 새로 생기는 두 가지 위험(의도 오독·prompt injection)을 어떻게 다룰지에 대한 Anthropic의 5가지 원칙 프레임워크. **본문 전문은 원문 링크에서 읽고**, 이 부록 페이지는 워크숍에서 짚을 핵심만 한 화면에 모았습니다.
 
-<Tabs items={['🇰🇷 한국어 번역', '🇬🇧 영문 원문']}>
+<Tabs items={['🇰🇷 한국어 정리', '🇬🇧 English summary']}>
   <Tabs.Tab>
 
-# 신뢰할 수 있는 에이전트, 실전에서
+## 한 문장 요약
 
-2026년 4월 9일 게시
+에이전트는 자율적으로 행동하는 만큼 사용자 의도를 잘못 읽거나 prompt injection 공격에 노출될 위험이 커집니다. Anthropic은 2025년 8월에 발표한 **신뢰할 수 있는 에이전트 프레임워크**(5가지 원칙)를 실전에서 어떻게 적용하는지 풀이합니다.
 
-AI "에이전트(agent)"는 사람과 조직이 AI를 사용하는 방식에서 일어난 최신 큰 전환입니다. 몇 년 전만 해도 AI 모델은 대중에게 챗봇(단순한 질의응답 기계)으로만 접할 수 있었습니다. 지금은 Claude Code·Claude Cowork 같은 제품을 통해 AI 모델이 훨씬 더 많은 일을 합니다. 코드를 쓰고 실행하고, 파일을 관리하고, 여러 애플리케이션을 가로지르는 작업을 끝까지 수행합니다. 거버넌스 관점에서는 새로운 변곡점입니다.
-
-에이전트는 이미 고객 쪽과 Anthropic 내부 양쪽 모두에서 실제 생산성 향상을 만들고 있습니다. 그러나 에이전트를 유용하게 만드는 자율성은 동시에 다양한 새 위험을 들여옵니다. 에이전트는 사람의 감독이 덜한 상태에서 행동하기 때문에, 사용자의 의도를 잘못 읽고 의도하지 않은 결과로 이어지는 행동을 할 여지가 더 큽니다. 또한 에이전트는 "프롬프트 인젝션(prompt injection — 모델이 처리할 콘텐츠 안에 악의적 지시문을 숨겨 두는 공격)" 사이버 공격의 표적이 됩니다. 모델을 속여서 평소 같으면 하지 않을 비용이 큰 행동을 하게 만드는 공격입니다. 에이전트가 더 강해지고 기업이 더 중요한 행동을 에이전트에 맡길수록, 이 두 종류의 위험은 모두 더 심해질 것으로 봅니다.
-
-지난 8월(2025년 8월), Anthropic은 신뢰할 수 있는 에이전트를 만들기 위한 프레임워크를 발표했습니다. 이 프레임워크는 위에 적은 긴장을 어떻게 다룰지에 대한 지침이며, 다섯 가지 핵심 원칙 위에 세워져 있습니다.
+## 다섯 가지 원칙
 
 1. 사람의 통제를 유지하는 것 (keeping humans in control)
 2. 사람의 가치와 정렬되는 것 (aligning with human values)
@@ -24,120 +20,100 @@ AI "에이전트(agent)"는 사람과 조직이 AI를 사용하는 방식에서 
 4. 투명성을 유지하는 것 (maintaining transparency)
 5. 프라이버시를 보호하는 것 (protecting privacy)
 
-## 에이전트는 어떻게 작동하는가
+## 에이전트의 네 구성요소
 
-에이전트는 "작업을 끝내기 위해 스스로 자신의 절차와 도구 사용을 지휘하는 AI 모델 — 사용자가 원하는 결과를 어떻게 달성할지를 모델이 스스로 결정하는 것"으로 정의됩니다.
+원문에서 정의하는 에이전트는 자기주도 루프(계획→실행→관찰→조정→반복)를 도는 AI 모델이고, 네 가지 부품으로 이뤄집니다.
 
-에이전트는 자기주도 루프로 작동합니다. 계획하고, 실행하고, 결과를 관찰하고, 조정하고, 작업이 끝나거나 사람의 입력이 필요할 때까지 반복합니다.
+| 구성요소 | 무엇인가 |
+|---|---|
+| **모델 (model)** | 작업을 가능케 하는 "지능". 학습으로 형성된 지식·추론·행동 |
+| **하네스 (harness)** | 모델이 따르는 지시문(instruction)과 가드레일 |
+| **도구 (tools)** | 메일·캘린더·비용 처리 같은 외부 서비스·애플리케이션 |
+| **환경 (environment)** | 에이전트가 실행되는 곳, 접근할 수 있는 파일·웹사이트·시스템 |
 
-에이전트는 네 가지 구성요소로 이뤄집니다.
+## 원칙이 실전에서 어떻게 모양을 가지는가
 
-- **모델 (The model)** — 작업을 가능케 하는 "지능". 학습을 통해 형성되어 지식·추론·행동에 영향을 미칩니다.
-- **하네스 (A harness)** — 모델이 그 안에서 작동하는 지시문(instruction)과 가드레일.
-- **도구 (Tools)** — 모델이 사용할 수 있는 서비스와 애플리케이션. 메일·캘린더·비용 처리 소프트웨어 등.
-- **환경 (An environment)** — 에이전트가 실행되는 곳, 그리고 접근할 수 있는 파일·웹사이트·시스템.
+원문에서 짚는 세 가지 적용 자리를 짧게 옮깁니다.
 
-## 실전에서의 원칙
+### ① 사람의 통제를 설계로 보장하기 (Designing for Human Control)
 
-### 사람의 통제를 설계로 보장하기
+- 사용자가 도구별로 권한을 직접 설정.
+- Claude Code의 **Plan Mode** — 행동 하나하나 승인 대신, 의도한 행동 계획 전체를 먼저 보여주고 검토·편집·승인.
+- 서브에이전트 협업이 늘면서 워크플로우 가시성을 어떻게 유지할지를 탐색 중.
 
-사용자는 Claude가 무엇을 할 수 있고 무엇을 못 하게 할지 결정함으로써 Claude를 통제합니다. Claude.ai와 Claude Desktop에서 사용자는 어떤 도구를 켤지 선택하고, Claude의 각 행동에 대한 권한을 설정할 수 있습니다.
+### ② 에이전트가 자신의 목표를 이해하도록 돕기 (Helping Agents Understand Their Goals)
 
-Claude Code에서는 매번 승인 프롬프트가 뜨는 데서 오는 마찰을 줄이기 위해 Plan Mode라는 새 기능이 도입됐습니다. 행동 하나하나에 대한 승인을 묻는 대신, Claude는 의도한 행동 계획을 먼저 보여줍니다. 사용자는 어떤 일도 일어나기 전에 전체 계획을 검토하고, 편집하고, 승인할 수 있습니다.
+- "불확실할 때 멈춰서 명확화를 요청한다" — 학습 시나리오에서 가정보다 멈춤을 강화.
+- Claude의 헌법(Constitution)이 "우려 제기·명확화 요청·진행 거부"를 가정에 의한 행동보다 위에 둡니다.
+- 연구 결과 — 복잡한 작업에서 Claude가 사용자에게 확인하러 들어오는 빈도가 단순한 작업에 비해 약 두 배.
 
-점점 더, 에이전트는 작업의 일부를 다른 "Claude" 서브에이전트들에게 위임합니다. 같은 작업의 서로 다른 부분에서 병렬로 일하는 다른 Claude들입니다. Anthropic은 사용자가 워크플로우를 어떻게 이해하고 조정할 수 있을지에 답하기 위해 여러 협업 패턴을 탐색하고 있습니다.
+### ③ 공격에 대한 방어 (Defending Against Attacks)
 
-### 에이전트가 자신의 목표를 이해하도록 돕기
+- prompt injection — 에이전트가 처리할 콘텐츠 안에 숨겨진 악의적 지시문.
+- 여러 층의 방어 — 모델 학습 단계의 패턴 인식 + 운영 트래픽 모니터링 + 외부 레드팀 테스트.
+- "이런 안전장치는 보장이 아닙니다" — 어떤 도구·데이터·권한·환경을 에이전트에 주는지 고객이 신중히 정해야 합니다.
 
-에이전트가 사용자의 의도대로 옳은 목표를 추구하도록 만드는 것은 에이전트 개발에서 가장 풀기 어려운 미해결 문제 중 하나입니다. 에이전트는 불확실할 때 멈춰서 명확화를 요청하거나, 실수를 저지르려는 시점에 멈출 줄 알 때에만 사용자가 실제로 원하는 것을 행동으로 옮길 수 있습니다.
+## 생태계 차원의 세 가지 과제
 
-Claude의 학습 과정에서 Anthropic은 Claude가 모호한 상황에 놓이는 시나리오를 구성하고, 가정하지 않고 멈추는 선택을 강화합니다. Claude의 헌법(Constitution)은 가정을 바탕으로 행동하기보다 "우려를 제기하거나, 명확화를 요청하거나, 진행을 거부하는" 쪽을 강화합니다.
-
-에이전트 사용에 대한 연구 결과, 복잡한 작업에서 사용자가 Claude의 진행을 중단시키는 빈도는 단순한 작업에 비해 조금 더 잦은 정도였지만, Claude 자신이 사용자에게 확인하러 들어오는 빈도는 약 두 배로 늘었습니다.
-
-### 공격에 대한 방어
-
-프롬프트 인젝션은 에이전트가 처리해야 하는 콘텐츠 안에 숨겨진 악의적 지시문입니다. 모델이 더 강해질수록 프롬프트 인젝션에 대한 이해도 깊어지고 있습니다. 공격이 어떻게 작동하는지, 그리고 왜 어떤 단일 방어선도 보호를 보장하지 못하는지 양쪽 모두에서.
-
-Anthropic은 여러 층에서 방어를 만듭니다. 인젝션 패턴을 인식하도록 모델을 학습시키고, 실세계 공격을 차단하기 위해 운영 트래픽을 모니터링하고, 외부 레드팀에게 시스템을 시험하게 합니다.
-
-이런 안전장치들은 보장이 아닙니다. Anthropic이 고객에게 어떤 도구와 데이터를 에이전트에 제공할지, 어떤 권한을 부여할지, 어떤 환경에서 에이전트를 작동시킬지 신중히 생각하기를 권하는 이유가 여기 있습니다.
-
-## 더 넓은 생태계가 할 수 있는 것
-
-에이전트의 보안과 신뢰성은 어느 단일 기업이 혼자 해낼 수 있는 일이 아닙니다. 산업·표준 기구·정부가 기여할 수 있는 영역이 여럿 있습니다.
-
-**벤치마크 (Benchmarks)** — 현재로서는 프롬프트 인젝션에 대한 저항성이나, 에이전트가 자기 불확실성을 얼마나 잘 표면화하는지를 엄밀하고 표준화된 방식으로 비교할 수 없습니다. NIST(미국 국립표준기술연구소) 같은 표준 기구가 공유 벤치마크를 유지하는 데 적합한 위치에 있습니다.
-
-**근거 공유 (Evidence sharing)** — Anthropic은 Claude가 에이전트로 어떻게 사용되는지, 그리고 어디서 막히는지에 대해 광범위하게 출판해 왔습니다. 더 많은 개발자가 이런 종류의 근거를 공유할수록, 정책 입안자들은 더 충실한 그림을 갖게 됩니다.
-
-**개방형 표준 (Open standards)** — Anthropic은 모델이 외부 데이터 소스·도구와 어떻게 통신할지에 대한 개방형 표준으로 Model Context Protocol(MCP)을 만들었고, 이를 Linux Foundation의 Agentic AI Foundation에 기증했습니다. 개방형 프로토콜은 보안 속성을 인프라 단에서 한 번에 설계하도록 해 줍니다. 배포 하나하나에서 사후에 패치를 덧붙이는 방식이 아니라.
-
-에이전트는 사람들이 일하는 방식을 다시 짤 것입니다. 그 일이 보안적이고 개방적인 토대 위에서 일어날 것인지 아닌지는, 산업·시민사회·정부가 그 토대를 어떻게 함께 짓느냐에 달려 있습니다.
+| 영역 | 요지 |
+|---|---|
+| **벤치마크 (Benchmarks)** | prompt injection 저항성·불확실성 표면화에 대한 표준화된 비교 기준 부재. NIST 같은 표준 기구의 역할 필요 |
+| **근거 공유 (Evidence sharing)** | 에이전트가 어디서 막히는지 더 많은 개발자가 데이터를 공유해야 정책 입안자에게 충실한 그림이 잡힘 |
+| **개방형 표준 (Open standards)** | Model Context Protocol(MCP)을 Linux Foundation의 Agentic AI Foundation에 기증 — 보안 속성을 인프라 단에서 한 번 설계 |
 
   </Tabs.Tab>
   <Tabs.Tab>
 
-# Trustworthy Agents in Practice
+## One-line summary
 
-Apr 9, 2026
+Autonomy makes agents useful but introduces two new risk classes — misreading user intent and being targeted by prompt injection. Anthropic applies its August 2025 **trustworthy-agents framework** (five core principles) to real-world product surfaces like Claude Code and Claude Cowork.
 
-AI "agents" represent the latest major shift in how people and organizations are using AI. A couple of years ago, AI models were only broadly available as chatbots—simple question-and-answer machines. Now, through products like Claude Code and Claude Cowork, AI models can do much more: they can write and execute code, manage files, and complete tasks that span multiple applications. This represents a new frontier for governance.
+## Five core principles
 
-Agents are already making real productivity gains for customers and inside Anthropic. But the autonomy that makes agents useful also introduces a range of new risks. Agents act with less human oversight, so there is more room for them to misread users' intent and take actions with unintended consequences. Agents are also targets for "prompt injection" cyberattacks, which try to trick models into taking costly actions that they otherwise wouldn't. As agents become more capable and as businesses trust them with more consequential actions, we expect both of these risks to intensify.
+1. Keeping humans in control
+2. Aligning with human values
+3. Securing agents' interactions
+4. Maintaining transparency
+5. Protecting privacy
 
-Last August, Anthropic published a framework for building trustworthy agents, which guides how they navigate this tension. It's built on five core principles: keeping humans in control, aligning with human values, securing agents' interactions, maintaining transparency, and protecting privacy.
+## Four components of an agent
 
-## How Agents Work
+An agent runs a self-directed loop (plan → act → observe → adjust → repeat) and is built from four parts:
 
-An agent is defined as "an AI model that directs its own processes and tool use when accomplishing a task—deciding for itself how to achieve what users want."
+| Component | What it is |
+|---|---|
+| **Model** | The intelligence that makes tasks possible, shaped by training |
+| **Harness** | The instructions and guardrails the model operates under |
+| **Tools** | Services and applications the model can use (email, calendar, expense software, etc.) |
+| **Environment** | Where the agent runs and which files, sites, or systems it can access |
 
-An agent operates in a self-directed loop: it plans, acts, observes the result, adjusts, and repeats until the task is done or it needs to check in for human input.
+## Principles in practice — three surfaces
 
-An agent is built from four components:
+### ① Designing for Human Control
 
-- **The model** — the "intelligence" that makes tasks possible, shaped by training to influence knowledge, reasoning, and behavior
-- **A harness** — the instructions and guardrails the model operates under
-- **Tools** — services and applications the model can use, like email, calendar, or expense software
-- **An environment** — where the agent runs and which files, websites, or systems it can access
+- Per-tool permission configuration in Claude.ai and Claude Desktop.
+- **Plan Mode** in Claude Code — review and approve the whole intended action plan up-front instead of approving step-by-step.
+- Coordination patterns for multi-agent workflows are still an open exploration.
 
-## Our Principles in Practice
+### ② Helping Agents Understand Their Goals
 
-### Designing for Human Control
+- Training scenarios reinforce pausing over assumption-making in ambiguous situations.
+- Claude's Constitution favors raising concerns, seeking clarification, or declining to proceed.
+- Research finding — Claude's own check-in rate on complex tasks is roughly double that of simple tasks.
 
-Users stay in control of Claude by deciding what Claude can and can't do. In Claude.ai and Claude Desktop, users can choose which tools to enable and configure permissions for each action Claude takes.
+### ③ Defending Against Attacks
 
-In Claude Code, a new feature called Plan Mode was introduced to address friction from repeated approval prompts. Rather than asking for approval for each action one-by-one, Claude shows the user its intended plan of action up-front. The user can review, edit, and approve the whole thing before anything happens.
+- Prompt injections — malicious instructions hidden in content the agent processes.
+- Layered defense — pattern-recognition training + production traffic monitoring + external red-team testing.
+- "These safeguards are not a guarantee" — customers must think carefully about which tools, data, permissions, and environments they give agents.
 
-Increasingly, agents hand off work to subagents—other "Claudes" working in parallel on different parts of a task. Anthropic is exploring different coordination patterns to address how users can understand and steer workflows.
+## Ecosystem-level work
 
-### Helping Agents Understand Their Goals
-
-Ensuring agents pursue the right goals in the way users would most want is one of the harder unsolved problems in agent development. An agent can only act on what users actually want if it knows when to stop and ask for clarification when uncertain, or when about to make a mistake.
-
-During Claude's training, Anthropic constructs scenarios placing Claude in ambiguous situations and reinforces choices to pause rather than assume. Claude's Constitution reinforces "raising concerns, seeking clarification, or declining to proceed" over acting on assumptions.
-
-Research on agent use shows that on complex tasks, users interrupt Claude only slightly more frequently than on simple ones, but Claude's own rate of checking in roughly doubles.
-
-### Defending Against Attacks
-
-Prompt injections are malicious instructions hidden inside content that an agent is asked to process. As models become more capable, understanding of prompt injection has sharpened both in terms of how attacks work and why no single line of defense guarantees protection.
-
-Anthropic builds defenses at several different layers: training the model to recognize injection patterns, monitoring production traffic to block real-world attacks, and having external red-teamers battle test systems.
-
-These safeguards are not a guarantee, which is why Anthropic encourages customers to think carefully about which tools and data they provide to agents, which permissions they grant, and which environments they let agents operate in.
-
-## What the Broader Ecosystem Can Do
-
-Security and reliability of agents cannot be achieved by any single company working alone. Several areas exist where industry, standards bodies, and governments can contribute:
-
-**Benchmarks** — There isn't currently a rigorous, standardized way to compare agent systems on their resistance to prompt injections or on how reliably they surface uncertainty. Standards bodies like NIST are well placed to maintain shared benchmarks.
-
-**Evidence sharing** — Anthropic has published extensively on how Claude is used as an agent and where it struggles. The more developers who share this kind of evidence, the fuller the picture policymakers will have.
-
-**Open standards** — Anthropic created the Model Context Protocol as an open standard for how models communicate with external data sources and tools and donated it to the Linux Foundation's Agentic AI Foundation. Open protocols allow security properties to be designed into infrastructure once, rather than patched together one deployment at a time.
-
-Agents will reshape how people work, and whether that happens on a foundation that is secure and open depends on how industry, civil society, and government build it together.
+| Area | Gist |
+|---|---|
+| **Benchmarks** | No rigorous standard yet for prompt-injection resistance or uncertainty surfacing — NIST and other standards bodies well placed to maintain shared benchmarks |
+| **Evidence sharing** | More developers publishing usage and failure data gives policymakers a fuller picture |
+| **Open standards** | Model Context Protocol donated to the Linux Foundation's Agentic AI Foundation — design security properties at the infrastructure layer once |
 
   </Tabs.Tab>
 </Tabs>
@@ -146,7 +122,7 @@ Agents will reshape how people work, and whether that happens on a foundation th
 
 ## 워크숍 매핑
 
-이 글의 5가지 원칙과 4-컴포넌트 모델이 우리 워크숍의 어떤 자리와 닿는지 짧게 짚어 둡니다.
+이 글의 4-컴포넌트 모델과 5가지 원칙이 우리 워크숍의 어떤 자리와 닿는지 짧게 짚어 둡니다.
 
 | Anthropic 5원칙 / 컴포넌트 | 우리 워크숍에서 대응되는 자리 |
 |---|---|
@@ -159,3 +135,4 @@ Agents will reshape how people work, and whether that happens on a foundation th
 원문은 안전·거버넌스 관점의 산업 차원 글이고, 우리 워크숍은 개인 학습 차원의 인스턴스화입니다. 같은 원칙이 두 스케일에서 어떻게 다르게 적용되는지 비교해 보면 본인 v1의 권한·범위·자율성을 정하는 데 손잡이가 됩니다.
 
 → 본문 단원으로 돌아가기: [에이전트란 무엇일까?](/agent) · [저장소 셋팅](/setup)
+→ 원문 전문: [Anthropic — Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents)
