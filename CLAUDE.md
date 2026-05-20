@@ -86,11 +86,37 @@ my-learning-agent/
 
 ## 콘텐츠 작성 컨벤션
 
-### _meta.ts
+### 페이지 메타데이터 — 단일 소스 (`lib/pages.ts`)
 
-- 최상위 (`content/_meta.ts`): 네비 헤더에 노출되는 페이지. **날짜는 빼고** "1회차", "2회차" 형식
-- 회차 내부 (`content/weekN/_meta.ts`): 사이드바 단원명. 학습 단원은 번호 + 슬로건 (`'1. 지식을 잘 정리한다는건 뭘까?'`) 형식
-- 키와 같은 이름의 `.mdx` 파일이 반드시 있어야 함 — 없으면 빌드 차단
+워크숍 페이지의 카드 메타(번호·제목·아이콘·meta chip·한 줄 설명)는 **[`lib/pages.ts`](lib/pages.ts)** 한 곳에서 관리한다. "워크숍 한눈에" 페이지(`content/index.mdx`)의 카드와 사이드바(`content/_meta.ts`) 라벨이 모두 이 레지스트리를 읽어 렌더되므로, 한 자리만 고치면 두 자리가 같이 움직인다.
+
+| 무엇을 바꿀 때 | 어디를 손대나 |
+|---|---|
+| 페이지 번호·제목·meta chip·한 줄 설명 | `lib/pages.ts` |
+| 새 페이지 추가 | `content/{id}.mdx` 작성 + `lib/pages.ts`에 항목 추가 |
+| 페이지 layout 위치(intro / grid / finale / follow-up) | `lib/pages.ts`의 `layout` 필드 |
+| 카드를 임시로 숨기기 | `lib/pages.ts`에서 해당 항목 주석 처리 |
+
+**🚧 가드레일**
+
+| 함정 | 잘못된 코드 | 올바른 코드 | 이유 |
+|---|---|---|---|
+| `content/index.mdx`에 카드를 직접 박음 | `<Card title="6. 꺼낼 한 줄" .../>` 하드코딩 | `<PageOverview />` 한 줄 | 카드를 직접 박으면 `lib/pages.ts`와 갈라져 사이드바·overview가 드리프트한다. 새 페이지가 추가되면 누군가 양쪽을 다 고쳐야 하는데, 한쪽을 빼먹는 게 가장 흔한 사고. |
+| `content/_meta.ts`에 번호·제목 하드코딩 | `knowledge: '2. 지식을 잘 정리한다는건 뭘까?'` 직접 적기 | `pages.reduce(...)`로 레지스트리에서 끌어쓰기 | 페이지 헤딩(`# 2. 지식...`)을 1로 바꿔도 사이드바가 2에 머무는 드리프트 차단. `_meta.ts`는 `lib/pages.ts`의 derived view. |
+| 카드 본문에 markdown blockquote | `<PageOverview>` 내부에 markdown 시도 | description은 plain 문자열로 (인라인 코드 ` ` 정도만 OK) | `description`은 JSX 노드가 아니라 string 그대로 Card children에 전달된다. blockquote·헤딩은 안 박힘. |
+
+**적용 순서 — 새 페이지 추가**
+1. `content/{id}.mdx` 작성 (페이지 헤딩 `# N. 제목`)
+2. `lib/pages.ts`에 항목 추가 (같은 번호·제목·layout)
+3. `npm run build`로 검증 — `_meta.ts`·index.mdx가 자동으로 따라옴
+
+**왜 훅이 아니라 단일 소스인가** — 훅(file watcher)은 변경 감지와 갱신 두 단계를 모두 신뢰해야 하고, 빌드 시점·개발 시점 동작이 갈린다. 단일 소스는 양쪽 페이지가 같은 데이터를 읽기만 하면 되므로 드리프트가 원천 차단된다.
+
+### _meta.ts (보조)
+
+- 최상위 (`content/_meta.ts`): 워크숍 페이지는 `lib/pages.ts`에서 derived. `appendix`·`examples` 같은 비-단원 페이지만 직접 정의.
+- 하위 디렉터리 (`content/{section}/_meta.ts`): 해당 섹션 사이드바.
+- 키와 같은 이름의 `.mdx` 파일이 반드시 있어야 함 — 없으면 빌드 차단.
 
 ### MDX 헤딩
 

@@ -9,6 +9,15 @@
             "command": "mkdir -p \"$CLAUDE_PROJECT_DIR/.screenshots\" && find \"$CLAUDE_PROJECT_DIR\" -maxdepth 1 -name '*.png' -type f -exec mv {} \"$CLAUDE_PROJECT_DIR/.screenshots/\" \\; 2>/dev/null; exit 0"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/review-mdx.sh\""
+          }
+        ]
       }
     ]
   }
