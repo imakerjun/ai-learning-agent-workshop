@@ -53,45 +53,57 @@ flowchart LR
 
 채널 이름은 `#나의-학습-에이전트` 같은 식이 자연스럽습니다.
 
+### 시간·난이도 안내
+
+<Callout type="info">
+이 실습은 터미널·환경 변수 셋업 경험에 따라 소요 시간이 달라집니다 — **개발자는 약 30분, 비개발자는 약 1시간 + 페어 도움 권장**입니다. 셋업 4단계 중 2단계(Webhook 주소 발급)와 3단계(환경 변수 등록)에서 처음 보는 용어가 등장합니다. 막히면 옆 사람에게 화면을 보여주며 같이 따라가는 게 가장 빠릅니다.
+</Callout>
+
 ### 셋업 4단계
 
 <Steps>
 
 #### 본인만 있는 슬랙 채널 만들기
 
-본인 워크스페이스에서 private 채널을 새로 만듭니다. 본인 한 명만 멤버로 두고, 다른 사람을 초대하지 않습니다.
+본인 워크스페이스에서 **비공개(private) 채널**을 새로 만듭니다. 본인 한 명만 멤버로 두고, 다른 사람을 초대하지 않습니다.
 
-#### Incoming Webhook URL 발급
+#### 슬랙으로 메시지를 보낼 주소(Incoming Webhook URL) 발급
 
-[Slack API > Incoming Webhooks](https://api.slack.com/messaging/webhooks)에서 본인 워크스페이스에 새 webhook을 만들고, 위에서 만든 채널을 대상으로 지정합니다. 발급된 URL은 `https://hooks.slack.com/services/...` 형태입니다.
+Incoming Webhook은 특정 슬랙 채널로 메시지를 보낼 수 있는 전용 주소입니다. 한 채널당 하나씩 발급받아 두면 그 주소로 메시지를 보내는 명령이 곧 그 채널에 메시지를 띄우는 동작이 됩니다.
+
+[Slack API > Incoming Webhooks](https://api.slack.com/messaging/webhooks)에서 본인 워크스페이스에 새 webhook을 만들고, 위에서 만든 채널을 대상으로 지정합니다. 발급된 URL은 `https://hooks.slack.com/services/...` 형태입니다. 이 URL은 비밀번호 비슷한 값이라 외부에 공유하지 않습니다.
 
 #### my-brain-v1 환경 변수 등록
 
-발급받은 URL을 본인 셸 환경에 `SLACK_WEBHOOK_URL`로 등록합니다.
+발급받은 URL을 본인 컴퓨터가 기억하도록 **환경 변수**로 등록합니다.
+
+<Callout type="note">
+**환경 변수**는 컴퓨터가 기억해두는 비밀번호 비슷한 값입니다. `~/.zshrc`는 본인 Mac이 터미널을 열 때마다 자동으로 읽는 설정 파일이고(`~`는 본인 홈 폴더, 앞에 `.`이 붙은 파일은 평소 숨겨져 있습니다), `source` 명령은 그 설정 파일을 다시 읽어 방금 추가한 값을 지금 바로 반영하라는 뜻입니다.
+</Callout>
 
 ```bash
 # ~/.zshrc 또는 ~/.bashrc에 추가
 export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/..."
 ```
 
-`source ~/.zshrc` 한 번 실행해 환경 변수를 현재 셸에 반영합니다.
+`source ~/.zshrc` 한 번 실행해 방금 추가한 값을 현재 터미널에 반영합니다.
 
 #### `/일일회고` 한 번 수동 호출
 
-Claude Code에서 my-brain-v1 디렉터리를 열고 `/일일회고`를 호출합니다. 슬랙 채널에 메시지 한 장이 도착하면 셋업 완료입니다.
+Claude Code에서 my-brain-v1 폴더를 열고 `/일일회고`를 호출합니다. 슬랙 채널에 메시지 한 장이 도착하면 셋업 완료입니다.
 
 </Steps>
 
 ### 자동화 — 매일 아침 7:30 도착
 
-수동 호출이 정상 작동하면 스케줄에 등록해 매일 아침 자동으로 굴러가게 합니다. 본인 환경에 따라 두 방식 중 하나를 선택합니다.
+수동 호출이 정상 작동하면 스케줄에 등록해 매일 아침 자동으로 굴러가게 합니다. 본인 환경에 따라 두 방식 중 하나를 선택합니다. **비개발자는 GitHub Actions 쪽을 권장**합니다 — Mac이 켜져 있을 필요가 없고 plist 같은 macOS 전용 설정 파일을 다루지 않아도 됩니다.
 
 <CardGrid columns={2}>
   <Card title="macOS launchd" icon="🍎" meta="로컬 항상 켜져 있는 경우">
-    `~/Library/LaunchAgents/`에 plist 한 장을 두고 `launchctl load`로 등록합니다. Mac이 꺼져 있으면 동작 안 함에 유의합니다.
+    Mac이 정해진 시간마다 어떤 명령을 자동으로 실행하게 하는 macOS 기본 기능입니다. plist는 그 예약 정보를 적어두는 작은 파일이고, `~/Library/LaunchAgents/`에 plist 한 장을 두고 `launchctl load`로 등록합니다. Mac이 꺼져 있으면 동작 안 함에 유의합니다.
   </Card>
-  <Card title="GitHub Actions" icon="⚙️" meta="저장소가 GitHub에 올라가 있는 경우">
-    `.github/workflows/daily-reflect.yml`에 cron(`'30 22 * * *'` = KST 07:30) 등록. 로컬 환경 무관하게 매일 실행됩니다.
+  <Card title="GitHub Actions" icon="⚙️" meta="저장소가 GitHub에 올라가 있는 경우 · 비개발자 권장">
+    GitHub Actions는 본인 저장소에서 정해진 시간마다 명령을 자동으로 실행해주는 GitHub의 기본 기능입니다. `.github/workflows/` 폴더에 `.yml` 파일 한 장을 두면 됩니다. 예약 시간은 cron(`'30 22 * * *'` 형태로 시간을 적는 표현)으로 적는데 UTC 기준이라 한국시간 07:30은 22:30 UTC로 적습니다.
   </Card>
 </CardGrid>
 
@@ -122,7 +134,7 @@ Claude Code에서 my-brain-v1 디렉터리를 열고 `/일일회고`를 호출�
 1. 슬랙의 "오늘 한 줄" 문장을 읽습니다
 2. Claude Code에서 `/쓰기` 호출
 3. "오늘 어떤 의도로 글을 쓰려고 해요?" 질문에 **슬랙 메시지의 한 줄을 그대로 답으로** 던집니다
-4. `/쓰기`가 outbox 새 글 골격을 만들고 `.ai-wiki/index.md`에 placeholder 한 줄을 박습니다
+4. `/쓰기`가 outbox 새 글 골격을 만들고 `.ai-wiki/index.md`에 자리만 잡아두는 한 줄(placeholder)을 박습니다
 5. 본인이 본문을 채워 갑니다
 
 이렇게 어제의 나가 outbox에 남긴 흔적이 슬랙을 거쳐 오늘의 글 시작점으로 돌아옵니다.
