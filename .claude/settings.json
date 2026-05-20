@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__plugin_playwright_playwright__browser_take_screenshot|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p \"$CLAUDE_PROJECT_DIR/.screenshots\" && find \"$CLAUDE_PROJECT_DIR\" -maxdepth 1 -name '*.png' -type f -exec mv {} \"$CLAUDE_PROJECT_DIR/.screenshots/\" \\; 2>/dev/null; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

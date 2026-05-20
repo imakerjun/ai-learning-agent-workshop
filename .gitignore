@@ -31,6 +31,7 @@ processed/
 # Playwright 캡처 (로컬 시각 검증 용)
 my-learning-agent-*.png
 .playwright-mcp/
+.screenshots/
 
 # Pagefind 검색 인덱스 (postbuild에서 자동 생성)
 /public/_pagefind/
