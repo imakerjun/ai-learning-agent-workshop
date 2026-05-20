@@ -136,8 +136,8 @@ my-wiki/
 
 원문 ([Karpathy LLM Wiki gist, 2026.04](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f))은 위키를 세 층으로 나눕니다.
 
-1. **원본 소스 (Raw sources)** — 원본 PDF·녹취록·웹 클립·메모. LLM은 읽기만 하고 **절대 수정하지 않는 자료**입니다. 위키 폴더 **바깥**에 둡니다. (원문: *"immutable — the LLM reads from them but never modifies them"* — 불변, LLM은 읽기만 하고 절대 수정하지 않는다)
-2. **위키 (The wiki)** — LLM이 원본 소스를 읽고 **요약·주제별 페이지로 컴파일한 결과물**(인물·장소 같은 구체 대상은 '엔티티 페이지', 추상 주제는 '개념 페이지'). 매 질문마다 다시 만드는 게 아니라 누적·갱신됩니다. (원문: *"a directory of LLM-generated markdown files"* — LLM이 만들어내는 마크다운 파일들의 디렉터리)
+1. **원본 소스 (Raw sources)** — 원본 PDF·녹취록·웹 클립·메모. LLM은 읽기만 하고 **절대 수정하지 않는 자료**입니다. 위키 폴더 **바깥**에 둡니다. (원문: *"immutable — the LLM reads from them but never modifies them"*)
+2. **위키 (The wiki)** — LLM이 원본 소스를 읽고 **요약·주제별 페이지로 컴파일한 결과물**(인물·장소 같은 구체 대상은 '엔티티 페이지', 추상 주제는 '개념 페이지'). 매 질문마다 다시 만드는 게 아니라 누적·갱신됩니다. (원문: *"a directory of LLM-generated markdown files"*)
 3. **스키마 (The schema)** — LLM에게 "어떤 구조로, 어떤 규칙으로 위키를 유지할지" 적어두는 안내문. Claude Code는 `CLAUDE.md`, Codex는 `AGENTS.md`를 쓴다고 원문에 명시돼 있습니다. (원문: *"a document (e.g. CLAUDE.md for Claude Code or AGENTS.md for Codex)"*)
 
 핵심 명제 — **"위키는 누적되며 자라는 자산"** (원문: *"the wiki is a **persistent, compounding artifact**"*). RAG(질문할 때마다 자료를 새로 검색해 끌어오는 방식)와 다른 점 — 위키는 **한 번 만들고 계속 갱신되는** 자산입니다.
