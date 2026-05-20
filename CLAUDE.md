@@ -69,7 +69,7 @@ my-learning-agent/
 │       ├── mechanism.mdx        # 2. 핵심 메커니즘 라이브 구성
 │       ├── setup.mdx            # 3. 저장소 셋팅
 │       ├── outbox.mdx           # 4. outbox 설계 + 데이터 + 커맨드
-│       ├── retrieve.mdx         # 5. 꺼낼 한 줄 (매일 아침 도착하는 메타인지 메일)
+│       ├── retrieve.mdx         # 5. 오늘 한 줄 (매일 아침 도착하는 메타인지 메일)
 │       └── mission.mdx
 ├── public/
 │   ├── illustrations/           # japan-images에서 가져온 헤딩 일러스트 4종
@@ -101,10 +101,10 @@ my-learning-agent/
 
 | 함정 | 잘못된 코드 | 올바른 코드 | 이유 |
 |---|---|---|---|
-| `content/index.mdx`에 카드를 직접 박음 | `<Card title="6. 꺼낼 한 줄" .../>` 하드코딩 | `<PageOverview />` 한 줄 | 카드를 직접 박으면 `lib/pages.ts`와 갈라져 사이드바·overview가 드리프트한다. 새 페이지가 추가되면 누군가 양쪽을 다 고쳐야 하는데, 한쪽을 빼먹는 게 가장 흔한 사고. |
+| `content/index.mdx`에 카드를 직접 박음 | `<Card title="6. 오늘 한 줄" .../>` 하드코딩 | `<PageOverview />` 한 줄 | 카드를 직접 박으면 `lib/pages.ts`와 갈라져 사이드바·overview가 드리프트한다. 새 페이지가 추가되면 누군가 양쪽을 다 고쳐야 하는데, 한쪽을 빼먹는 게 가장 흔한 사고. |
 | `content/_meta.ts`에 번호·제목 하드코딩 | `knowledge: '2. 지식을 잘 정리한다는건 뭘까?'` 직접 적기 | `pages.reduce(...)`로 레지스트리에서 끌어쓰기 | 페이지 헤딩(`# 2. 지식...`)을 1로 바꿔도 사이드바가 2에 머무는 드리프트 차단. `_meta.ts`는 `lib/pages.ts`의 derived view. |
 | 카드 본문에 markdown blockquote | `<PageOverview>` 내부에 markdown 시도 | description은 plain 문자열로 (인라인 코드 ` ` 정도만 OK) | `description`은 JSX 노드가 아니라 string 그대로 Card children에 전달된다. blockquote·헤딩은 안 박힘. |
-| MDX 본문 링크 텍스트에 페이지 번호 박음 | `[3. 셋팅](/setup)` · `[6. 꺼낼 한 줄](/retrieve)` | `[셋팅](/setup)` · `[꺼낼 한 줄](/retrieve)` — 번호 없이 명사구만 | 링크 텍스트는 사이드바·overview 카드가 이미 번호를 보여주므로 본문 산문에서는 번호 불필요. 번호를 박는 순간 두 번째 소스가 생겨 `lib/pages.ts`를 흔들면 본문 링크가 드리프트한다(예: `# 4. 저장소 셋팅` 페이지를 `[3. 셋팅]`로 가리키는 사고). 검출: `grep -rnE "\[[0-9]+\. [^]]*\]\(/" content/ --include="*.mdx"` 결과 0건이어야 함. |
+| MDX 본문 링크 텍스트에 페이지 번호 박음 | `[3. 셋팅](/setup)` · `[6. 오늘 한 줄](/retrieve)` | `[셋팅](/setup)` · `[오늘 한 줄](/retrieve)` — 번호 없이 명사구만 | 링크 텍스트는 사이드바·overview 카드가 이미 번호를 보여주므로 본문 산문에서는 번호 불필요. 번호를 박는 순간 두 번째 소스가 생겨 `lib/pages.ts`를 흔들면 본문 링크가 드리프트한다(예: `# 4. 저장소 셋팅` 페이지를 `[3. 셋팅]`로 가리키는 사고). 검출: `grep -rnE "\[[0-9]+\. [^]]*\]\(/" content/ --include="*.mdx"` 결과 0건이어야 함. |
 
 **적용 순서 — 새 페이지 추가**
 1. `content/{id}.mdx` 작성 (페이지 헤딩 `# N. 제목`)
