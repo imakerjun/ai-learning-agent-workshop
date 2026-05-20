@@ -35,7 +35,6 @@ export function PageOverview() {
               title={`${page.number}. ${page.title}`}
               icon={page.icon}
               href={page.href}
-              meta={page.meta}
             >
               {page.description}
             </Card>
@@ -62,7 +61,6 @@ function renderSoloCard(page: PageSummary) {
       title={formatCardTitle(page)}
       icon={page.icon}
       href={page.href}
-      meta={page.meta}
     >
       {page.description}
     </Card>
