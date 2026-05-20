@@ -84,11 +84,11 @@ export const pages: PageSummary[] = [
   {
     id: 'mission',
     number: '7',
-    title: '1주일 자율 챌린지',
+    title: '워크숍 이후, 1주일을 위한 4가지 제안',
     icon: '🚀',
     href: '/mission',
     description:
-      '1주일만 본인 저장소 관리 방법으로 굴려보기. Day 0 셋업부터 Day 7 회고까지 step-by-step 가이드.',
+      '워크숍 이후 1주일 동안 시도해볼 만한 4가지 제안. 구체 액션플랜은 오프라인 마무리에서 본인이 직접 정합니다.',
     layout: 'follow-up',
   },
 ]
