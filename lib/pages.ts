@@ -62,17 +62,8 @@ export const pages: PageSummary[] = [
     layout: 'grid',
   },
   {
-    id: 'outbox',
-    number: '5',
-    title: 'outbox 설계 + 데이터 + 커맨드',
-    icon: '📤',
-    href: '/outbox',
-    description: '본인 데이터를 `.inbox/`에 넣고 `/돌아보기` 돌려서 `outbox/` 만들기',
-    layout: 'grid',
-  },
-  {
     id: 'retrieve',
-    number: '6',
+    number: '5',
     title: '오늘 한 줄',
     icon: '🎯',
     href: '/retrieve',
@@ -82,7 +73,7 @@ export const pages: PageSummary[] = [
   },
   {
     id: 'mission',
-    number: '🚀',
+    number: '6',
     title: '이어가기 · 워크숍 이후 1주',
     icon: '🚀',
     href: '/mission',

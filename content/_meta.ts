@@ -10,11 +10,7 @@ import { pages } from '../lib/pages'
  * appendix·examples 같은 비-단원 페이지는 별도로 둡니다.
  */
 const workshopMeta = pages.reduce<Record<string, string>>((acc, page) => {
-  if (page.layout === 'follow-up') {
-    acc[page.id] = `${page.icon} ${page.title}`
-  } else {
-    acc[page.id] = `${page.number}. ${page.title}`
-  }
+  acc[page.id] = `${page.number}. ${page.title}`
   return acc
 }, {})
 
