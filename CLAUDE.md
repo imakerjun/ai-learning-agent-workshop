@@ -333,6 +333,33 @@ npm run build      # Vercel 빌드와 동일 검증
 - **시각 변경 후 Playwright로 확인** — 사용자 피드백: "페이지 수정 후 시각 검토"
 - **콘텐츠 수정 전 STYLE.md 1회 읽기 + 작성 후 자가 점검 1회**
 
+## 하네스: 비개발자 친화도 리뷰
+
+**목표:** `content/**/*.mdx`가 새로 만들어지거나 수정될 때마다 비개발자(마케터·기획자·디자이너) 1인 입장에서 자동으로 친화도 리뷰를 수행한다. 워크숍 본질 목표("15명이 자기 손으로 v1을 굴려서 outbox에 글 1개를 쌓는 것")가 영문 직역·약어·개발 jargon 때문에 입구에서 깨지지 않게 한다.
+
+**트리거:**
+- 자동 — [.claude/hooks/review-mdx.sh](.claude/hooks/review-mdx.sh)가 PostToolUse 훅으로 `content/**/*.mdx` 변경을 감지하면 `non-developer-reviewer` 에이전트 호출을 다음 턴에 안내한다 (`additionalContext` 주입).
+- 수동 — 사용자가 "비개발자 시각으로 리뷰해줘", "워크숍 페이지 검토", "비개발자 친화도 확인" 등을 입력하면 `non-developer-review` 스킬 + `non-developer-reviewer` 에이전트를 호출.
+
+**구성 요소:**
+- 에이전트 정의: [.claude/agents/non-developer-reviewer.md](.claude/agents/non-developer-reviewer.md)
+- 스킬: [.claude/skills/non-developer-review/SKILL.md](.claude/skills/non-developer-review/SKILL.md)
+- 훅 스크립트: [.claude/hooks/review-mdx.sh](.claude/hooks/review-mdx.sh)
+- 훅 등록: [.claude/settings.json](.claude/settings.json) — `PostToolUse` matcher `Edit|Write|MultiEdit`
+
+**리뷰 4 카테고리:**
+1. 🚨 영문 단독/직역 (input/output, retrieval, agentic system 등)
+2. 🚨 약어 (ACI, HCI, SWE-bench 등)
+3. 🚨 개발 jargon (clone, frontmatter, append-only, cron, ls -a 등)
+4. 🟡 추상 동사·범퍼 문장 (input/output 안 보이는 동사)
+
+**변경 이력:**
+| 날짜 | 변경 내용 | 대상 | 사유 |
+|------|----------|------|------|
+| 2026-05-21 | 초기 구성 | 전체 | `/agent` 페이지 비개발자 친화도 검토 요청 + 페이지 변경 시 자동 리뷰 필요 |
+
+---
+
 ## 사용자 메모리 (외부)
 
 사용자(`im1@woowahan.com` · `makerjun`)의 글로벌 메모리에 챌린지 운영 DNA·교육 철학·말투 프로파일이 저장돼 있음. 이 저장소 작업 시 같이 참고:

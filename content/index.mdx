@@ -6,29 +6,11 @@
 **오늘의 목표**: 내 학습 에이전트 v1과 함께 **학습 1사이클** 돌리기.
 </Callout>
 
-## 학습 단원 5개
+{/*
+  카드 목록은 `lib/pages.ts`(단일 소스)에서 끌어옵니다. 새 단원을 추가하거나
+  번호·제목·설명을 바꾸려면 `lib/pages.ts`만 수정하면, 이 한눈에 페이지와
+  사이드바(`content/_meta.ts`)가 함께 갱신됩니다. 카드 하나하나를 여기서
+  직접 편집하지 마세요.
+*/}
 
-<CardGrid columns={2}>
-  <Card title="2. 지식을 잘 정리한다는건 뭘까?" icon="🪶" href="/knowledge" meta="Hook + 통증 + 외부 모델">
-    내 PKM의 통증 1줄 → PKM/PIM·정리=사고·카파시 짚고 본인 케이스 매칭
-  </Card>
-  <Card title="3. 나·LLM·저장소 삼자간의 협업 관계" icon="📐" href="/mechanism" meta="메인 액티비티 ①">
-    내가 쓴 글이 학습을 만들고, 시간순 평문이 LLM이 읽는 토대가 된다
-  </Card>
-  <Card title="4. 저장소 셋팅" icon="🗂️" href="/setup" meta="셋업">
-    초안 저장소 clone + `.claude/commands/` 자동 로드
-  </Card>
-  <Card title="5. outbox 설계 + 데이터 + 커맨드" icon="📤" href="/outbox" meta="메인 액티비티 ②">
-    본인 데이터를 `.inbox/`에 넣고 `/돌아보기` 돌려서 `outbox/` 만들기
-  </Card>
-</CardGrid>
-
-<Card title="6. 꺼낼 한 줄" icon="🎯" href="/retrieve" meta="매일 아침 도착하는 v1">
-`/schedule`로 매일 아침 outbox·`.ai-wiki`를 읽고 숫자 3개 + 오늘 꺼낼 한 줄을 본인에게 보냅니다. 안 봐도 그만인 뉴스레터가 아니라 약속입니다.
-</Card>
-
-## 이어가기
-
-<Card title="이어가기 · 워크숍 이후 1주" icon="🚀" href="/mission" meta="자율">
-  내 outbox를 7일 굴리고 메타인지 1줄을 5개 모으는 자율 챌린지.
-</Card>
+<PageOverview />

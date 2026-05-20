@@ -19,8 +19,12 @@ export function PageOverview() {
   const finale = pagesByLayout('finale')
   const followUp = pagesByLayout('follow-up')
 
+  const mainCount = intro.length + grid.length + finale.length
+
   return (
     <>
+      <h2>{`학습 단원 ${mainCount}개`}</h2>
+
       {intro.map(renderSoloCard)}
 
       {grid.length > 0 && (
