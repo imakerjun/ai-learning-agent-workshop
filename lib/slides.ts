@@ -5,13 +5,13 @@ export type SlideDeck = {
 }
 
 export const slideDecks: Record<string, SlideDeck> = {
-  '/week2/knowledge': {
-    dir: '/slides/week2/knowledge',
+  '/workshop/knowledge': {
+    dir: '/slides/workshop/knowledge',
     count: 7,
     title: '지식을 잘 정리한다는 건 뭘까?',
   },
-  '/week2/mechanism': {
-    dir: '/slides/week2/mechanism',
+  '/workshop/mechanism': {
+    dir: '/slides/workshop/mechanism',
     count: 7,
     title: '나·LLM·저장소 삼자간의 협업 관계',
   },

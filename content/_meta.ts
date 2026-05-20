@@ -12,16 +12,12 @@ export default {
       typesetting: 'article',
     },
   },
-  about: {
-    title: '챌린지 소개',
+  intro: {
+    title: '워크숍 소개',
     type: 'page',
   },
-  week1: {
-    title: '1회차',
-    type: 'page',
-  },
-  week2: {
-    title: '2회차',
+  workshop: {
+    title: '학습 단원',
     type: 'page',
   },
   examples: {
