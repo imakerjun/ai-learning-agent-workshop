@@ -9,11 +9,11 @@ import './globals.css'
 
 export const metadata = {
   title: {
-    default: '나의 학습 에이전트',
-    template: '%s | 나의 학습 에이전트',
+    default: 'AI 학습 에이전트 만들기',
+    template: '%s | AI 학습 에이전트 만들기',
   },
   description:
-    '인프런 AI 엔지니어링 챌린지 · 5회차 라이브 도큐. 매주 라이브를 통해 나를 점점 더 똑똑하게 만들어주는 학습 에이전트를 직접 만든다.',
+    '우아한형제들 사내 1일 워크숍 (2026-05-21) · 나를 점점 더 똑똑하게 만들어주는 학습 에이전트를 6시간 안에 직접 만든다.',
 }
 
 const logo = (
@@ -37,7 +37,7 @@ const logo = (
         background: '#3D6FF2',
       }}
     />
-    나의 학습 에이전트
+    AI 학습 에이전트 만들기
   </span>
 )
 
@@ -69,7 +69,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             footer={
               <Footer>
                 <span style={{ fontSize: '0.8125rem', color: 'rgb(155, 155, 155)' }}>
-                  © {new Date().getFullYear()} 나의 학습 에이전트 · 인프런 AI 엔지니어링 챌린지
+                  © {new Date().getFullYear()} AI 학습 에이전트 만들기 · 우아한형제들 사내 워크숍
                 </span>
               </Footer>
             }
