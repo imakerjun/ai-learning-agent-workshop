@@ -239,7 +239,7 @@ for f in $(find content -name "*.mdx"); do perl -0777 -ne 'while (/<Callout[^>]*
 | 코드 블록 | **노션 스킨 + clipboard 버튼** — `components/CodeBlock.tsx` (Nextra `Pre` wrap) + `next.config.mjs`에 `defaultShowCopyCode: true` | 좌측 상단 언어 라벨(소문자 `markdown`·`shell`·`plain text` 등 `LANGUAGE_LABELS` 매핑), 우측 상단 copy 버튼. 배경 `#f7f6f3` (Card와 동일 톤), `box-shadow inset 0 0 0 1px rgba(55,53,47,0.09)`로 Nextra ring 대체, radius 6px. copy 버튼은 opacity 0.35 기본 / hover 1.0 — Notion은 hover-only지만 본 라이브 도큐는 복붙 우선이라 항상 살짝 보이는 게 더 맞음. 개별 차단은 ` ```lang copy=false `. CSS는 `components/CodeBlock.module.css`에 격리, Tailwind `x:` 유틸을 `!important`로만 덮어쓴다 |
 | 학습 에이전트 폴더 prefix | **`outbox/` · `.inbox/` · `.ai-wiki/`** (점 prefix) | "점=커맨드가 관리하는 자동화 영역, prefix 없는 outbox만 사람이 직접 쓰는 자리"라는 Unix 컨벤션이 폴더명에 박힘. `ls` 디폴트에서 `outbox/` 한 곳만 보이는 게 의도된 우선순위 표현. mechanism의 두 영역 모델(사람용 vs LLM용)과 정확히 매핑. `ai-output/`은 별도 폴더 없이 `.inbox/`가 흡수 — AI 산출물도 raw 자료 취급 |
 | 학습 에이전트 커맨드 명명 | **`/돌아보기` · `/주간정리`** (한국어 메인, 영문 alias `reflect`·`digest`는 동작만 지원) | 한국 챌린지 톤에 맞춤. 라이브에서 강사가 입에 붙는 한국어로 호출. mechanism.mdx의 학습 과학(인출·생성·글쓰기=사고·서사)을 "돌아본다"라는 동사 한 단어가 그대로 짚어줌. 시간 제약 X (`/morning` 아님) — 본인이 호출하고 싶을 때 |
-| 학습 에이전트 starter | **[`imakerjun/my-brain-v1`](https://github.com/imakerjun/my-brain-v1)** | 라이브 직전 보강: `.ai-wiki/` + `.claude/commands/{돌아보기,주간정리}.md` 추가. 라이브 전 미리 clone한 수강생은 `git pull`로 보강분 받아감 |
+| 학습 에이전트 starter | **[`imakerjun/pkm-v1`](https://github.com/imakerjun/pkm-v1)** | 라이브 직전 보강: `.ai-wiki/` + `.claude/commands/{돌아보기,주간정리}.md` 추가. 라이브 전 미리 clone한 수강생은 `git pull`로 보강분 받아감 |
 
 ## 🧭 콘텐츠 수정 작업 순서
 

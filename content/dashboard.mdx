@@ -149,7 +149,7 @@ flowchart LR
 2. claude.ai에서 받을 채널 연결 켜기 ([https://claude.ai/customize/connectors](https://claude.ai/customize/connectors)) — **Gmail** 또는 **Slack** 중 본인이 매일 확인하는 채널 하나를 선택합니다
 3. `/schedule` 호출 → 다음 네 가지를 그대로 답하기:
    - **시각** — 한국 시간 매일 아침 7시 (`0 22 * * *` 그대로 복붙, 아래 토글 참고)
-   - **저장소** — `https://github.com/<본인>/my-brain-v1`
+   - **저장소** — `https://github.com/<본인>/pkm-v1`
    - **모델** — `claude-sonnet-4-6` 그대로 복붙
    - **받을 곳** — Gmail 또는 Slack
 
@@ -199,9 +199,9 @@ UTC 22시 = 한국 시간(KST) 다음 날 오전 7시(UTC+9). 그대로 복붙�
 | 본인 저장소 파일 읽기 | `/schedule` 호출 시 본인 GitHub 저장소 주소를 넣으면, 원격 세션이 시작할 때 그 저장소를 자기 작업 폴더로 가져옵니다(clone). `outbox/`·`.ai-wiki/` 파일을 그 안에서 읽습니다. 비공개 저장소라도 GitHub 권한 한 번만 허용하면 됩니다. |
 | 메일·슬랙 메시지 보내기 | claude.ai의 `connectors` 페이지에서 Gmail 또는 Slack을 본인 계정에 연결해두면, 원격 세션이 본인 대신 그 채널로 메시지를 보낼 수 있습니다. |
 
-**단, 본인 노트북 안의 폴더(`~/git/my-brain-v1/`)는 못 봅니다.** 원격 세션과 본인 컴퓨터는 다른 공간이라, 본인 컴퓨터에만 있고 GitHub에 안 올린 파일은 보이지 않습니다. 그래서 학습 저장소를 GitHub에 비공개로 올려두는 게 v1의 가장 단순한 경로입니다.
+**단, 본인 노트북 안의 폴더(`~/git/pkm-v1/`)는 못 봅니다.** 원격 세션과 본인 컴퓨터는 다른 공간이라, 본인 컴퓨터에만 있고 GitHub에 안 올린 파일은 보이지 않습니다. 그래서 학습 저장소를 GitHub에 비공개로 올려두는 게 v1의 가장 단순한 경로입니다.
 
-워크숍 자료 저장소(`my-learning-agent-workshop`)와 본인 학습 데이터 저장소(`my-brain-v1`)는 분리해서, 자료는 공개로, 학습 데이터는 비공개로 둡니다.
+워크숍 자료 저장소(`my-learning-agent-workshop`)와 본인 학습 데이터 저장소(`pkm-v1`)는 분리해서, 자료는 공개로, 학습 데이터는 비공개로 둡니다.
 
 </Toggle>
 
