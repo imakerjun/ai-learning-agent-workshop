@@ -205,6 +205,57 @@ UTC 22시 = 한국 시간(KST) 다음 날 오전 7시(UTC+9). 그대로 복붙�
 
 </Toggle>
 
+<Toggle title="🔒 비공개 저장소를 쓸 때 — GitHub 권한 잡기 한 번">
+
+학습 저장소는 비공개가 권장 경로입니다. 본인이 적는 문장의 솔직함을 지키는 장치이기 때문입니다(누구도 안 본다는 전제로 거칠게 적을 수 있어야 outbox 본래 역할이 살아남습니다). `/schedule`은 비공개 저장소도 권한만 한 번 잡아주면 그대로 동작합니다.
+
+**v1 권한 셋업 — 첫 등록 때 한 번**
+
+`/schedule`을 처음 호출하면 GitHub 인증 화면이 한 번 뜹니다. 두 가지를 챙기시면 됩니다.
+
+| 항목 | 권장 선택 | 이유 |
+|---|---|---|
+| **접근 범위** | "선택한 저장소만(Only select repositories)" → `pkm-v1` 하나만 체크 | 본인의 모든 저장소가 아니라 학습 저장소 한 곳만 권한 허용. 사고 시 영향 범위가 그 저장소에 한정됩니다 |
+| **권한** | Read only (메일·슬랙만 보낼 거면 충분) | 원격 세션이 저장소에 글을 새로 쓰거나 푸시할 필요가 없으면 읽기 권한만으로 끝납니다 |
+
+이 두 가지를 잡으면, 원격 세션이 `pkm-v1` **하나만**, **읽기만** 할 수 있는 권한을 갖습니다. 본인 다른 비공개 저장소(회사 코드·개인 프로젝트)는 손도 못 댑니다.
+
+**동작 흐름**
+
+```mermaid
+flowchart LR
+    A["⏰ /schedule<br/>매일 7시 트리거"]
+    B["☁️ 원격 세션 시작<br/>(Anthropic 클라우드)"]
+    C["🔒 비공개<br/>pkm-v1"]
+    D["📮 Gmail / Slack"]
+
+    A --> B
+    B -- "GitHub 토큰으로<br/>clone(읽기)" --> C
+    C -- "outbox/ 파일 읽음" --> B
+    B -- "본인 커넥터로 발송" --> D
+
+    classDef trigger fill:#fafce0,stroke:#b59f3b,color:#5b4a0e
+    classDef cloud fill:#dee9fb,stroke:#3d6ff2,color:#1f47b3
+    classDef repo fill:#f7f6f3,stroke:#9b9a97,color:#3a3a3a
+    classDef channel fill:#dcf0e3,stroke:#3a9d6e,color:#1f5b3f
+    class A trigger
+    class B cloud
+    class C repo
+    class D channel
+```
+
+원격 세션이 clone할 때 GitHub에 토큰을 보여주고 "이 저장소 읽게 해줘"라고 요청합니다. 비공개라도 토큰이 유효하면 통과됩니다. 본인 노트북·다른 사람은 여전히 못 봅니다.
+
+**한 가지만 조심**
+
+비공개 저장소라도 **API 키·비밀번호 같은 진짜 비밀**은 적지 마세요. 비공개 = 안 새는 것이 아니라, 사고 시 영향 범위를 줄여주는 정도입니다. 학습 메모는 OK, 비밀 값은 별도 비밀번호 관리 도구(1Password 등)에 둡니다.
+
+**권한을 잘못 잡았을 때 — 다시 잡는 자리**
+
+[github.com/settings/installations](https://github.com/settings/installations)에서 Anthropic(또는 Claude) 항목을 찾아 "Configure"를 누르면 저장소 선택·권한 범위를 다시 잡을 수 있습니다. 권한이 너무 넓다 싶으면 여기서 좁히면 됩니다.
+
+</Toggle>
+
 검증은 1주일 돌려보고 — **본인이 한 줄을 더 적게 만들었는가**가 기준입니다. 메일은 도착했는데 outbox에 그날 글이 안 늘면, 세 요소의 시각화가 본인에게 안 맞는 신호입니다.
 
 ## 함께 누적되는 형태

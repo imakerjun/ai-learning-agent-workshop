@@ -56,10 +56,10 @@ flowchart LR
 ### 시간·난이도 안내
 
 <Callout type="info">
-이 실습은 터미널·환경 변수 셋업 경험에 따라 소요 시간이 달라집니다 — **개발자는 약 30분, 비개발자는 약 1시간 + 페어 도움 권장**입니다. 셋업 4단계 중 2단계(Webhook 주소 발급)와 3단계(환경 변수 등록)에서 처음 보는 용어가 등장합니다. 막히면 옆 사람에게 화면을 보여주며 같이 따라가는 게 가장 빠릅니다.
+Claude의 슬랙 커넥터를 쓰면 Webhook URL 발급·환경 변수 등록 같은 개발자 셋업이 통째로 사라져서 **15〜20분 안에 셋업이 끝나는 게 일반적**입니다. 막히면 옆 사람에게 화면을 보여주며 같이 따라가는 게 가장 빠릅니다.
 </Callout>
 
-### 셋업 4단계
+### 셋업 3단계
 
 <Steps>
 
@@ -96,18 +96,22 @@ Claude Code에서 pkm-v1 폴더를 열고 `/일일회고`를 호출합니다. �
 
 ### 자동화 — 매일 아침 7:30 도착
 
-수동 호출이 정상 작동하면 스케줄(예약 시간) 등록 도구에 맡겨 매일 아침 자동으로 굴러가게 합니다. 본인 환경에 따라 두 방식 중 하나를 선택합니다. **비개발자는 GitHub Actions 쪽을 권장**합니다 — Mac이 켜져 있을 필요가 없고 plist 같은 macOS 전용 설정 파일을 다루지 않아도 됩니다.
+수동 호출이 정상 작동하면 스케줄(예약 시간) 등록 도구에 맡겨 매일 아침 자동으로 굴러가게 합니다. 본인 환경에 따라 두 방식 중 하나를 선택합니다. **비개발자는 Anthropic 클라우드 `/schedule` 쪽을 권장**합니다 — Mac이 켜져 있을 필요가 없고 추가 비용도 없습니다.
 
 <CardGrid columns={2}>
-  <Card title="macOS launchd" icon="🍎" meta="로컬 항상 켜져 있는 경우">
-    Mac이 정해진 시간마다 어떤 명령을 자동으로 실행하게 하는 macOS 기본 기능입니다. plist는 그 예약 정보를 적어두는 작은 파일이고, `~/Library/LaunchAgents/`에 plist 한 장을 두고 `launchctl load`로 등록합니다. Mac이 꺼져 있으면 동작 안 함에 유의합니다.
+  <Card title="macOS launchd" icon="🍎" meta="Mac이 항상 켜져 있는 경우">
+    Mac이 정해진 시간마다 어떤 명령을 자동으로 실행하게 하는 macOS 기본 기능입니다. plist는 그 예약 정보를 적어두는 작은 파일이고, `~/Library/LaunchAgents/`에 plist 한 장을 두고 `launchctl load`로 등록합니다. Mac이 꺼져 있으면 동작 안 함에 유의합니다. Claude Code 구독 안에서 그대로 동작합니다.
   </Card>
-  <Card title="GitHub Actions" icon="⚙️" meta="저장소가 GitHub에 올라가 있는 경우 · 비개발자 권장">
-    GitHub Actions는 본인 저장소에서 정해진 시간마다 명령을 자동으로 실행해주는 GitHub의 기본 기능입니다. `.github/workflows/` 폴더에 `.yml` 파일(예약 정보를 적는 작은 텍스트 파일) 한 장을 두면 됩니다. 예약 시간은 cron(`'30 22 * * *'` 형태로 시간을 적는 표현)으로 적는데 UTC 기준이라 한국시간 07:30은 22:30 UTC로 적습니다.
+  <Card title="Anthropic 클라우드 /schedule" icon="☁️" meta="Mac 꺼져 있어도 OK · 비개발자 권장">
+    claude.ai에서 `/schedule`로 일정을 등록하면, Anthropic 클라우드의 별도 컴퓨터가 정해진 시각에 본인 저장소를 clone해 한 줄을 뽑고 Slack/Gmail로 보내줍니다. Mac이 꺼져 있어도 동작합니다. **Claude Pro/Max 구독 안에서 그대로 동작 — 별도 비용 없음**. 셋업 자세히는 [지식 대시보드 뉴스레터](/dashboard)의 `/schedule` 섹션 참고.
   </Card>
 </CardGrid>
 
-세부 plist·yml 예시는 [pkm-v1의 `/일일회고` 커맨드 본문](https://github.com/imakerjun/pkm-v1/blob/main/.claude/commands/%EC%9D%BC%EC%9D%BC%ED%9A%8C%EA%B3%A0.md)에 박혀 있습니다. 본인 저장소에서 그대로 참고해 셋업합니다.
+<Callout type="note">
+**GitHub Actions로 돌리는 방법도 기술적으로는 가능합니다.** 다만 그 경우 Claude를 호출하기 위해 Claude API를 별도로 써야 하고, 그건 Claude Pro/Max 구독과 **별도로 과금**됩니다. 이번 워크숍에서는 추가 비용이 들지 않는 두 방식(launchd · `/schedule`)을 권장합니다.
+</Callout>
+
+세부 plist 예시와 `/schedule` 프롬프트 템플릿은 [pkm-v1의 `/일일회고` 커맨드 본문](https://github.com/imakerjun/pkm-v1/blob/main/.claude/commands/%EC%9D%BC%EC%9D%BC%ED%9A%8C%EA%B3%A0.md)에 박혀 있습니다. 본인 저장소에서 그대로 참고해 셋업합니다.
 
 ### 슬랙에 도착하는 메시지 한 장
 
