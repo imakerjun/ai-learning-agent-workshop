@@ -35,7 +35,7 @@ flowchart LR
 
 ## 실습 — Claude Code → 슬랙 → 본인만 있는 채널
 
-매일 아침 "오늘 한 줄" 후보가 슬랙으로 도착하는 흐름을 본인 손으로 셋업해 봅니다. my-brain-v1의 `/일일회고` 커맨드가 outbox 폴더 전체를 한 번 훑어서 어제·오늘 글에서 가장 자주 부딪힌 한 문장을 추출하고, 그 한 줄을 본인만 있는 슬랙 채널로 보내는 구조입니다.
+매일 아침 "오늘 한 줄" 후보가 슬랙으로 도착하는 흐름을 본인 손으로 셋업해 봅니다. pkm-v1의 `/일일회고` 커맨드가 outbox 폴더 전체를 한 번 훑어서 어제·오늘 글에서 가장 자주 부딪힌 한 문장을 추출하고, 그 한 줄을 본인만 있는 슬랙 채널로 보내는 구조입니다.
 
 <Callout type="tip">
 "받는 행위 = 오늘의 나"가 추상적 표현이 아니라 **매일 아침 슬랙에 도착하는 메시지 한 장**으로 물리적으로 구현되는 자리입니다. 어제의 나가 outbox에 남긴 흔적을 오늘의 나가 슬랙에서 만납니다.
@@ -73,7 +73,7 @@ Incoming Webhook은 특정 슬랙 채널로 메시지를 보낼 수 있는 전�
 
 [Slack API > Incoming Webhooks](https://api.slack.com/messaging/webhooks)에서 본인 워크스페이스에 새 webhook을 만들고, 위에서 만든 채널을 대상으로 지정합니다. 발급된 URL은 `https://hooks.slack.com/services/...` 형태입니다. 이 URL은 비밀번호 비슷한 값이라 외부에 공유하지 않습니다.
 
-#### my-brain-v1 환경 변수 등록
+#### pkm-v1 환경 변수 등록
 
 발급받은 URL을 본인 컴퓨터가 기억하도록 **환경 변수**로 등록합니다.
 
@@ -90,7 +90,7 @@ export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/..."
 
 #### `/일일회고` 한 번 수동 호출
 
-Claude Code에서 my-brain-v1 폴더를 열고 `/일일회고`를 호출합니다. 슬랙 채널에 메시지 한 장이 도착하면 셋업 완료입니다.
+Claude Code에서 pkm-v1 폴더를 열고 `/일일회고`를 호출합니다. 슬랙 채널에 메시지 한 장이 도착하면 셋업 완료입니다.
 
 </Steps>
 
@@ -107,7 +107,7 @@ Claude Code에서 my-brain-v1 폴더를 열고 `/일일회고`를 호출합니�
   </Card>
 </CardGrid>
 
-세부 plist·yml 예시는 [my-brain-v1의 `/일일회고` 커맨드 본문](https://github.com/imakerjun/my-brain-v1/blob/main/.claude/commands/%EC%9D%BC%EC%9D%BC%ED%9A%8C%EA%B3%A0.md)에 박혀 있습니다. 본인 저장소에서 그대로 참고해 셋업합니다.
+세부 plist·yml 예시는 [pkm-v1의 `/일일회고` 커맨드 본문](https://github.com/imakerjun/pkm-v1/blob/main/.claude/commands/%EC%9D%BC%EC%9D%BC%ED%9A%8C%EA%B3%A0.md)에 박혀 있습니다. 본인 저장소에서 그대로 참고해 셋업합니다.
 
 ### 슬랙에 도착하는 메시지 한 장
 
